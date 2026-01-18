@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ <style>
+        /* Reset e estilo básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-top: 15px;
+            opacity: 0.9;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* Corações flutuando */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            transform: rotate(45deg);
+            animation: float 6s linear infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 10px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-700px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Eu Te Amo 💖</h1>
+    <h2>Giovanna 💕</h2>
+    <p>Com todo o meu <a href="pag002.html">coração</a> ❤️</p>
+
+    <!-- Corações animados -->
+    <script>
+        const body = document.querySelector("body");
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+            body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>

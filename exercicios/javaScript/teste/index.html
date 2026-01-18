@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+            color: white;
+            font-family: "Poppins", sans-serif;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        h1 {
+            position: relative;
+            font-size: 2.5rem;
+            color: #ff6b81;
+            text-shadow: 0 0 20px #ff6b81;
+            animation: fadeIn 4s ease-in-out forwards;
+            opacity: 0;
+            margin-top: 300px;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="heartCanvas"></canvas>
+    <h1>Eu te amo, garota 💖</h1>
+
+    <script>
+        const canvas = document.getElementById("heartCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const heartPoints = [];
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2 - 50;
+        const scale = 12;
+
+        // Função para gerar os pontos que formam o coração
+        for (let t = 0; t < Math.PI * 2; t += 0.05) {
+            const x = scale * 16 * Math.pow(Math.sin(t), 3);
+            const y = -scale * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            heartPoints.push({ x: centerX + x, y: centerY + y });
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speed = Math.random() * 0.05 + 0.02;
+                this.target = { x, y };
+                this.color = `hsl(${Math.random() * 30 + 350}, 100%, 60%)`;
+            }
+
+            update() {
+                this.x += (this.target.x - this.x) * this.speed;
+                this.y += (this.target.y - this.y) * this.speed;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        // Criar partículas que se movem até formar o coração
+        for (let i = 0; i < heartPoints.length; i++) {
+            const p = heartPoints[i];
+            particles.push(new Particle(p.x, p.y));
+        }
+
+        function animate() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Ajusta o tamanho ao redimensionar a janela
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

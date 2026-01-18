@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Aqui pru cê Isa</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        background-color: black;
+        color: white;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        text-align: center;
+        
+    }
+
+    h1 {
+        color: #cc0808a8;
+        margin-bottom: 30px;
+        font-size: 2.5em;
+        opacity: 0;
+        animation: fadeText 2s forwards;
+    }
+
+    /* Coração */
+    .heart {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        background: white;
+        transform: rotate(-45deg) scale(0);
+        margin: 40px auto;
+        animation: buildHeart 3s forwards;
+        cursor: pointer;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: white;
+        border-radius: 50%;
+    }
+
+    .heart::before {
+        top: -60px;
+        left: 0;
+    }
+
+    .heart::after {
+        left: 60px;
+        top: 0;
+    }
+
+    /* Mensagem escondida */
+    .message {
+        display: none;
+        margin-top: 30px;
+        font-size: 1.1em;
+        color: #cccccc;
+        animation: fadeMessage 1.5s forwards;
+    }
+
+    /* Animações */
+    @keyframes buildHeart {
+        0% {
+            transform: rotate(-45deg) scale(0);
+            opacity: 0;
+        }
+        100% {
+            transform: rotate(-45deg) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeText {
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeMessage {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>aqui pru cê Isa</h1>
+
+    <div class="heart" onclick="mostrarMensagem()"></div>
+
+    <div class="message" id="msg">
+        Você me zoa…<br>
+        até dmais, </br>
+        mas também é incrível mais do que imagina<br>
+       ...
+    </div>
+</div>
+
+<script>
+    function mostrarMensagem() {
+        document.getElementById("msg").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
